@@ -1,35 +1,50 @@
-
-
 import streamlit as st
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
-# Load pre-trained model and tokenizer from Hugging Face
-model_name = "your_model_name_here"  # Replace with the actual model name
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+# Load the translation model using pipeline
+@st.cache_resource
+def load_pipeline():
+    return pipeline("text2text-generation", model="abdulwaheed1/english-to-urdu-translation-mbart")
 
-def translate_to_roman_urdu(text):
-    # Tokenize the input text
-    inputs = tokenizer.encode(text, return_tensors="pt", max_length=512, truncation=True)
-    # Perform translation
-    outputs = model.generate(inputs, max_length=512, num_beams=4, early_stopping=True)
-    # Decode the output to text
-    translated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    return translated_text
+# Load model directly
+@st.cache_resource
+def load_model():
+    tokenizer = AutoTokenizer.from_pretrained("abdulwaheed1/english-to-urdu-translation-mbart")
+    model = AutoModelForSeq2SeqLM.from_pretrained("abdulwaheed1/english-to-urdu-translation-mbart")
+    return tokenizer, model
 
-# Streamlit app UI
-st.title("English to Roman Urdu Translator")
-st.write("Enter an English text below to get its translation in Roman Urdu.")
+# Initialize the Streamlit app
+def main():
+    st.title("English to Urdu Translator")
+    st.write("Enter English text below and get the translation in Urdu.")
 
-# Input text
-input_text = st.text_area("English Text", "")
+    # Load the pipeline and model
+    translation_pipeline = load_pipeline()
+    tokenizer, model = load_model()
 
-if st.button("Translate"):
-    if input_text:
-        # Translate the input text
-        roman_urdu_translation = translate_to_roman_urdu(input_text)
-        # Display the translation
-        st.write("**Roman Urdu Translation:**")
-        st.write(roman_urdu_translation)
-    else:
-        st.warning("Please enter some text for translation.")
+    # Input text box for user
+    english_text = st.text_area("Input English Text", height=150)
+
+    if st.button("Translate with Pipeline"):
+        if english_text:
+            # Use the pipeline for translation
+            translated_text = translation_pipeline(english_text, max_length=400)[0]['generated_text']
+            st.subheader("Translated Urdu Text (using Pipeline):")
+            st.write(translated_text)
+        else:
+            st.error("Please enter some text to translate.")
+
+    if st.button("Translate with Model"):
+        if english_text:
+            # Use the model directly for translation
+            inputs = tokenizer.encode(english_text, return_tensors="pt")
+            outputs = model.generate(inputs, max_length=400)
+            translated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+            st.subheader("Translated Urdu Text (using Model):")
+            st.write(translated_text)
+        else:
+            st.error("Please enter some text to translate.")
+
+if __name__ == "__main__":
+    main()
