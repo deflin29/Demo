@@ -293,7 +293,7 @@
 
 
 
-------------------------------------Roman Urdu output code----------------
+#------------------------------------Roman Urdu output code----------------
 import streamlit as st
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from typing import Optional
@@ -382,7 +382,7 @@ def main():
     """, unsafe_allow_html=True)
 
     st.title("🌐 English to Roman Urdu Translator")
-    st.markdown("#### Powered by Helsinki-NLP Translation Model")
+    st.markdown("#### Developed by: Muhammad Abubakar")
 
     # Initialize translator
     @st.cache_resource
