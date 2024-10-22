@@ -724,14 +724,23 @@ def main():
             else:
                 st.warning("⚠️ Please enter some text to translate")
 
-        # Information section
-        st.markdown("---")
-        st.markdown("""### About this Translator
-        This translator uses the Helsinki-NLP model specifically trained for English to Urdu translation:
-        - Specialized model for English-Urdu translation
-        - Optimized for accuracy and performance
-        - Supports both short and long text translations
-        - Real-time translation with error handling
-        For best results:
-        - Use clear and simple English sentences
-        - Avoid using slang""")
+       st.markdown("---")
+    st.markdown("""
+    ### About this Translator
+    
+    This translator uses the mBART-50 Many-to-Many Multilingual Machine Translation model with:
+    
+    - **Beam Search**: Uses 4 beams for optimal translation quality
+    - **Length Control**: Adjustable maximum length via slider
+    - **Language Codes**: Specifically configured for English to Urdu translation
+    - **Error Handling**: Robust error management and user feedback
+    
+    ⚠️ Note: For best results, use clear and concise English text.
+    """)
+
+    except Exception as e:
+        st.error(f"Error initializing the translator: {str(e)}")
+        st.info("Please try refreshing the page or contact support if the error persists.")
+
+if __name__ == "__main__":
+    main()
