@@ -17,7 +17,7 @@ class EnglishToRomanUrduTranslator:
             self.model = MBartForConditionalGeneration.from_pretrained(self.model_name)
             # Set source and target language
             self.tokenizer.src_lang = "en_XX"
-            self.tokenizer.tgt_lang = "ur_PK"
+            self.tokenizer.tgt_lang = "ur_IN"  # Changed to ur_IN which is supported by mBART-50
         except Exception as e:
             st.error(f"Error loading model: {str(e)}")
             raise
@@ -25,8 +25,12 @@ class EnglishToRomanUrduTranslator:
     def translate(self, text: str, max_length: int = 128) -> Optional[str]:
         """Translate English text to Roman Urdu"""
         try:
-            # Prepare the input text
-            encoded = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=max_length)
+            # Prepare the input text with correct language tokens
+            encoded = self.tokenizer(text, 
+                                   return_tensors="pt", 
+                                   padding=True, 
+                                   truncation=True, 
+                                   max_length=max_length)
             
             # Generate translation
             generated_tokens = self.model.generate(
@@ -36,7 +40,7 @@ class EnglishToRomanUrduTranslator:
                 num_beams=4,
                 length_penalty=1.0,
                 early_stopping=True,
-                forced_bos_token_id=self.tokenizer.lang_code_to_id["ur_PK"]
+                forced_bos_token_id=self.tokenizer.lang_code_to_id["ur_IN"]  # Updated language code
             )
 
             # Decode the translation
@@ -136,7 +140,7 @@ def main():
     
     - **Beam Search**: Uses 4 beams for optimal translation quality
     - **Length Control**: Adjustable maximum length via slider
-    - **Language Codes**: Specifically configured for English to Urdu translation
+    - **Language Support**: Configured for English to Urdu translation using mBART-50's supported language codes
     - **Error Handling**: Robust error management and user feedback
     
     ⚠️ Note: For best results, use clear and concise English text.
