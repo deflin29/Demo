@@ -876,7 +876,7 @@ def main():
     st.markdown("""
         <style>
         body {
-            background-color: #121212;
+            background-color: #41384B;
             color: white;
             font-family: 'Arial', sans-serif;
         }
@@ -981,7 +981,7 @@ def main():
             <li>Avoid using slang or highly technical terms</li>
             <li>Keep sentences concise for better accuracy</li>
         </ul>
-        """, unsafe_allow_html=True)
+        """)
 
     except Exception as e:
         st.error(f"Error initializing the translator: {str(e)}")
