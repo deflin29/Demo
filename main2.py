@@ -734,4 +734,4 @@ def main():
         - Real-time translation with error handling
         For best results:
         - Use clear and simple English sentences
-        - Avoid using slang
+        - Avoid using slang""")
