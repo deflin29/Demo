@@ -339,16 +339,56 @@ class EnglishToRomanUrduTranslator:
     def urdu_to_roman_urdu(self, urdu_text: str) -> str:
         """Convert Urdu text to Roman Urdu"""
         roman_dict = {
-            'ا': 'a', 'ب': 'b', 'پ': 'p', 'ت': 't', 'ٹ': 'tt',
-            'ث': 'th', 'ج': 'j', 'چ': 'ch', 'ح': 'h', 'خ': 'kh',
-            'د': 'd', 'ڈ': 'dd', 'ذ': 'z', 'ر': 'r', 'ز': 'z',
-            'ژ': 'zh', 'س': 's', 'ش': 'sh', 'ص': 's', 'ض': 'z',
-            'ط': 't', 'ظ': 'z', 'ع': 'a', 'غ': 'gh', 'ف': 'f',
-            'ق': 'q', 'ک': 'k', 'گ': 'g', 'ل': 'l', 'م': 'm',
-            'ن': 'n', 'ں': 'n', 'و': 'w', 'ہ': 'h', 'ء': "'",
-            ' ': ' ', ',': ',', '.': '.', '?': '?', '!': '!',
-            # Add more mappings as necessary
-        }
+    'ا': 'a',  # Alef
+    'ب': 'b',  # Be
+    'پ': 'p',  # Pe
+    'ت': 't',  # Te
+    'ٹ': 'ṭ',  # Tta
+    'ث': 'th', # Se
+    'ج': 'j',  # Je
+    'چ': 'ch', # Che
+    'ح': 'h',  # Ḥe
+    'خ': 'kh', # Khe
+    'د': 'd',  # Dal
+    'ڈ': 'ḍ',  # Dda
+    'ذ': 'z',  # Zāl
+    'ر': 'r',  # Re
+    'ز': 'z',  # Ze
+    'ژ': 'zh', # Zhe
+    'س': 's',  # Se
+    'ش': 'sh', # She
+    'ص': 'ṣ',  # Ṣe
+    'ض': 'ẓ',  # Ẓe
+    'ط': 'ṭ',  # Ṭe
+    'ظ': 'ẓ',  # Ẓe
+    'ع': 'a',  # Ain
+    'غ': 'gh', # Ghain
+    'ف': 'f',  # Fe
+    'ق': 'q',  # Qaf
+    'ک': 'k',  # Kaf
+    'گ': 'g',  # Gaf
+    'ل': 'l',  # Lam
+    'م': 'm',  # Meem
+    'ن': 'n',  # Noon
+    'ں': 'n',  # Ñ (Nasal)
+    'و': 'o',  # Wāo
+    'ہ': 'h',  # He
+    'ء': "'",  # Hamzah
+    'ی': 'y',  # Ye
+    'ئ': 'yi',  # Bari Ye (used for sounds)
+    ' ': ' ',  # Space
+    ',': ',',  # Comma
+    '.': '.',  # Full stop
+    '?': '?',  # Question mark
+    '!': '!',  # Exclamation mark
+    '؛': ';',  # Semicolon
+    ':': ':',  # Colon
+    '“': '"',  # Opening quote
+    '”': '"',  # Closing quote
+    '‘': "'",  # Opening single quote
+    '’': "'",  # Closing single quote
+}
+
         
         # Transliterate the Urdu text to Roman Urdu
         roman_text = ''.join(roman_dict.get(char, char) for char in urdu_text)
