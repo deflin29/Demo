@@ -725,7 +725,7 @@ def main():
                 st.warning("⚠️ Please enter some text to translate")
 
        st.markdown("---")
-    st.markdown("""
+       st.markdown("""
     ### About this Translator
     
     This translator uses the mBART-50 Many-to-Many Multilingual Machine Translation model with:
