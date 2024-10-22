@@ -1,42 +1,39 @@
 import streamlit as st
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
-# Load the classification model using pipeline
+# Load the translation model using pipeline
 @st.cache_resource
 def load_pipeline():
-    return pipeline("text-classification", model="Aimlab/xlm-roberta-roman-urdu-finetuned")
+    return pipeline("translation", model="HaiderSultanArc/t5-small-english-to-urdu")
 
 # Load model directly
 @st.cache_resource
 def load_model():
-    tokenizer = AutoTokenizer.from_pretrained("Aimlab/xlm-roberta-roman-urdu-finetuned")
-    model = AutoModelForSequenceClassification.from_pretrained("Aimlab/xlm-roberta-roman-urdu-finetuned")
+    tokenizer = AutoTokenizer.from_pretrained("HaiderSultanArc/t5-small-english-to-urdu")
+    model = AutoModelForSeq2SeqLM.from_pretrained("HaiderSultanArc/t5-small-english-to-urdu")
     return tokenizer, model
 
 # Initialize the Streamlit app
 def main():
-    st.title("Text Classification in Roman Urdu")
-    st.write("Enter text below and get the classification.")
+    st.title("English to Urdu Translator")
+    st.write("Enter English text below and get the translation in Urdu.")
 
     # Load the pipeline and model
-    classification_pipeline = load_pipeline()
+    translation_pipeline = load_pipeline()
     tokenizer, model = load_model()
 
     # Input text box for user
-    text_input = st.text_area("Input Text", height=150)
+    english_text = st.text_area("Input English Text", height=150)
 
-    if st.button("Classify Text"):
-        if text_input:
-            # Use the pipeline for classification
-            results = classification_pipeline(text_input)
+    if st.button("Translate to Urdu"):
+        if english_text:
+            # Use the pipeline for translation
+            translated_text = translation_pipeline(english_text, max_length=400)[0]['generated_text']
 
-            st.subheader("Classification Results:")
-            for result in results:
-                label = result['label']
-                score = result['score']
-                st.write(f"**Label:** {label} | **Score:** {score:.4f}")
+            st.subheader("Translated Urdu Text:")
+            st.write(translated_text)
         else:
-            st.error("Please enter some text to classify.")
+            st.error("Please enter some text to translate.")
 
 if __name__ == "__main__":
     main()
