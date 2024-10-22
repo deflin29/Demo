@@ -876,7 +876,7 @@ def main():
     st.markdown("""
         <style>
         body {
-            background-color: #41384B;
+            background-color: #AA8873;
             color: white;
             font-family: 'Arial', sans-serif;
         }
