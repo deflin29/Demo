@@ -150,12 +150,152 @@
 #     main()
 
 
+#------------------------------------current Model Copy V1--------------------------------
+
+
+# import streamlit as st
+# from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+# import torch
+# from typing import Optional
+
+# class EnglishToRomanUrduTranslator:
+#     def __init__(self):
+#         self.model_name = "Helsinki-NLP/opus-mt-en-ur"
+#         self.device = "cpu"
+#         self.load_model()
+
+#     def load_model(self):
+#         """Load the model and tokenizer"""
+#         try:
+#             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+#             self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
+#         except Exception as e:
+#             st.error(f"Error loading model: {str(e)}")
+#             raise
+
+#     def translate(self, text: str, max_length: int = 128) -> Optional[str]:
+#         """Translate English text to Roman Urdu"""
+#         try:
+#             # Tokenize the text
+#             inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=max_length)
+            
+#             # Generate translation
+#             outputs = self.model.generate(
+#                 inputs["input_ids"],
+#                 max_length=max_length,
+#                 num_beams=5,
+#                 length_penalty=1.0,
+#                 early_stopping=True
+#             )
+            
+#             # Decode the translation
+#             translated_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+#             return translated_text
+
+#         except Exception as e:
+#             st.error(f"Translation error: {str(e)}")
+#             return None
+
+# def main():
+#     # Page configuration
+#     st.set_page_config(
+#         page_title="English to Roman Urdu Translator",
+#         page_icon="🌐",
+#         layout="wide"
+#     )
+
+#     # Custom CSS
+#     st.markdown("""
+#         <style>
+#         .stApp {
+#             max-width: 1000px;
+#             margin: 0 auto;
+#         }
+#         .translation-box {
+#             border: 1px solid #ddd;
+#             border-radius: 5px;
+#             padding: 10px;
+#             background-color: #f9f9f9;
+#         }
+#         .stButton>button {
+#             width: 100%;
+#         }
+#         </style>
+#     """, unsafe_allow_html=True)
+
+#     st.title("🌐 English to Roman Urdu Translator")
+#     st.markdown("#### Powered by Helsinki-NLP Translation Model")
+
+#     # Initialize translator
+#     @st.cache_resource
+#     def get_translator():
+#         return EnglishToRomanUrduTranslator()
+
+#     try:
+#         translator = get_translator()
+
+#         # Main content
+#         col1, col2 = st.columns(2)
+
+#         with col1:
+#             st.subheader("English Input")
+#             input_text = st.text_area(
+#                 label="Enter English text",
+#                 height=200,
+#                 placeholder="Enter your English text here...",
+#                 key="input",
+#                 label_visibility="collapsed"
+#             )
+
+#         with col2:
+#             st.subheader("Roman Urdu Output")
+#             output_placeholder = st.empty()
+
+#         # Translation button
+#         if st.button("Translate to Urdu", use_container_width=True):
+#             if input_text:
+#                 with st.spinner("Translating..."):
+#                     translation = translator.translate(input_text)
+                    
+#                     if translation:
+#                         output_placeholder.markdown(
+#                             f'<div class="translation-box">{translation}</div>',
+#                             unsafe_allow_html=True
+#                         )
+#                         st.success("Translation completed! ✨")
+#             else:
+#                 st.warning("⚠️ Please enter some text to translate")
+
+#         # Information section
+#         st.markdown("---")
+#         st.markdown("""
+#         ### About this Translator
+        
+#         This translator uses the Helsinki-NLP model specifically trained for English to Urdu translation:
+        
+#         - Specialized model for English-Urdu translation
+#         - Optimized for accuracy and performance
+#         - Supports both short and long text translations
+#         - Real-time translation with error handling
+        
+#         For best results:
+#         - Use clear and simple English sentences
+#         - Avoid using slang or highly technical terms
+#         - Keep sentences concise for better accuracy
+#         """)
+
+#     except Exception as e:
+#         st.error(f"Error initializing the translator: {str(e)}")
+#         st.info("Please try refreshing the page or contact support if the error persists.")
+
+# if __name__ == "__main__":
+#     main()
 
 
 
+------------------------------------Roman Urdu output code----------------
 import streamlit as st
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-import torch
 from typing import Optional
 
 class EnglishToRomanUrduTranslator:
@@ -174,7 +314,7 @@ class EnglishToRomanUrduTranslator:
             raise
 
     def translate(self, text: str, max_length: int = 128) -> Optional[str]:
-        """Translate English text to Roman Urdu"""
+        """Translate English text to Urdu"""
         try:
             # Tokenize the text
             inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=max_length)
@@ -195,6 +335,24 @@ class EnglishToRomanUrduTranslator:
         except Exception as e:
             st.error(f"Translation error: {str(e)}")
             return None
+
+    def urdu_to_roman_urdu(self, urdu_text: str) -> str:
+        """Convert Urdu text to Roman Urdu"""
+        roman_dict = {
+            'ا': 'a', 'ب': 'b', 'پ': 'p', 'ت': 't', 'ٹ': 'tt',
+            'ث': 'th', 'ج': 'j', 'چ': 'ch', 'ح': 'h', 'خ': 'kh',
+            'د': 'd', 'ڈ': 'dd', 'ذ': 'z', 'ر': 'r', 'ز': 'z',
+            'ژ': 'zh', 'س': 's', 'ش': 'sh', 'ص': 's', 'ض': 'z',
+            'ط': 't', 'ظ': 'z', 'ع': 'a', 'غ': 'gh', 'ف': 'f',
+            'ق': 'q', 'ک': 'k', 'گ': 'g', 'ل': 'l', 'م': 'm',
+            'ن': 'n', 'ں': 'n', 'و': 'w', 'ہ': 'h', 'ء': "'",
+            ' ': ' ', ',': ',', '.': '.', '?': '?', '!': '!',
+            # Add more mappings as necessary
+        }
+        
+        # Transliterate the Urdu text to Roman Urdu
+        roman_text = ''.join(roman_dict.get(char, char) for char in urdu_text)
+        return roman_text
 
 def main():
     # Page configuration
@@ -252,14 +410,16 @@ def main():
             output_placeholder = st.empty()
 
         # Translation button
-        if st.button("Translate to Urdu", use_container_width=True):
+        if st.button("Translate to Roman Urdu", use_container_width=True):
             if input_text:
                 with st.spinner("Translating..."):
                     translation = translator.translate(input_text)
                     
                     if translation:
+                        # Convert the Urdu translation to Roman Urdu
+                        roman_translation = translator.urdu_to_roman_urdu(translation)
                         output_placeholder.markdown(
-                            f'<div class="translation-box">{translation}</div>',
+                            f'<div class="translation-box">{roman_translation}</div>',
                             unsafe_allow_html=True
                         )
                         st.success("Translation completed! ✨")
@@ -268,16 +428,12 @@ def main():
 
         # Information section
         st.markdown("---")
-        st.markdown("""
-        ### About this Translator
-        
+        st.markdown("""### About this Translator
         This translator uses the Helsinki-NLP model specifically trained for English to Urdu translation:
-        
         - Specialized model for English-Urdu translation
         - Optimized for accuracy and performance
         - Supports both short and long text translations
         - Real-time translation with error handling
-        
         For best results:
         - Use clear and simple English sentences
         - Avoid using slang or highly technical terms
