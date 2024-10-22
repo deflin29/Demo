@@ -965,23 +965,7 @@ def main():
                 st.warning("⚠️ Please enter some text to translate")
 
         # Information section
-        st.markdown("---")
-        st.markdown("""
-        <h3 style='text-align:center;'>About this Translator</h3>
-        <p style='text-align:center;'>This translator uses the Helsinki-NLP model specifically trained for English to Urdu translation:</p>
-        <ul style='color: white; text-align:center;'>
-            <li>Specialized model for English-Urdu translation</li>
-            <li>Optimized for accuracy and performance</li>
-            <li>Supports both short and long text translations</li>
-            <li>Real-time translation with error handling</li>
-        </ul>
-        <p style='text-align:center; color: #dcdcdc;'>For best results:</p>
-        <ul style='color: white; text-align:center;'>
-            <li>Use clear and simple English sentences</li>
-            <li>Avoid using slang or highly technical terms</li>
-            <li>Keep sentences concise for better accuracy</li>
-        </ul>
-        """)
+        
 
     except Exception as e:
         st.error(f"Error initializing the translator: {str(e)}")
