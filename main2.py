@@ -876,43 +876,49 @@ def main():
     st.markdown("""
         <style>
         body {
-            background-color: #1e1e1e;
+            background-color: #121212;
             color: white;
             font-family: 'Arial', sans-serif;
         }
         .stApp {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            padding: 20px;
         }
         .translation-box {
             border: 1px solid #444;
             border-radius: 8px;
             padding: 15px;
             background-color: #2a2a2a;
-            font-size: 1.2em;
+            font-size: 1.5em;
             color: #f1f1f1;
         }
         .stButton>button {
-            background-color: #007bff;
+            background-color: #6200ea;
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 1.1em;
         }
         .stButton>button:hover {
-            background-color: #0056b3;
+            background-color: #3700b3;
         }
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .info {
+            text-align: center;
+            margin-top: 30px;
+            color: #b0bec5;
         }
         </style>
     """, unsafe_allow_html=True)
 
     st.title("🌐 English to Roman Urdu Translator")
-    st.markdown("<h5 class='header'>Powered by Helsinki-NLP</h5>", unsafe_allow_html=True)
+    st.markdown("<h3 class='header'>Powered by Helsinki-NLP</h3>", unsafe_allow_html=True)
     st.markdown("#### Developed by: Hafiz Muhammad Abubakar")
 
     # Initialize translator
@@ -963,14 +969,14 @@ def main():
         st.markdown("""
         <h3 style='text-align:center;'>About this Translator</h3>
         <p style='text-align:center;'>This translator uses the Helsinki-NLP model specifically trained for English to Urdu translation:</p>
-        <ul style='color: white;'>
+        <ul style='color: white; text-align:center;'>
             <li>Specialized model for English-Urdu translation</li>
             <li>Optimized for accuracy and performance</li>
             <li>Supports both short and long text translations</li>
             <li>Real-time translation with error handling</li>
         </ul>
         <p style='text-align:center; color: #dcdcdc;'>For best results:</p>
-        <ul style='color: white;'>
+        <ul style='color: white; text-align:center;'>
             <li>Use clear and simple English sentences</li>
             <li>Avoid using slang or highly technical terms</li>
             <li>Keep sentences concise for better accuracy</li>
